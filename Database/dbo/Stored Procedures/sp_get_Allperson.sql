@@ -1,0 +1,6 @@
+﻿/* READ OPERATION */
+CREATE PROCEDURE sp_get_Allperson
+AS
+BEGIN
+    SELECT * FROM dbo.Person
+END;
