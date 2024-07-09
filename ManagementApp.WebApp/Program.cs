@@ -1,4 +1,4 @@
-using ManagementApp.WebApp.Data;
+using MGMTApp.WebApp.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

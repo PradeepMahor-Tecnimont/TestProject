@@ -1,8 +1,8 @@
-using ManagementApp.WebApp.Models;
+using MGMTApp.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ManagementApp.WebApp.Controllers
+namespace MGMTApp.WebApp.Controllers
 {
     public class HomeController : Controller
     {

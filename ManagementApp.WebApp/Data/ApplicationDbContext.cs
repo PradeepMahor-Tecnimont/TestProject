@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ManagementApp.WebApp.Data
+namespace MGMTApp.WebApp.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
