@@ -5,6 +5,15 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGMTApp.WebApp", "ManagementApp.WebApp\MGMTApp.WebApp.csproj", "{5BBB8D99-972B-47AB-A784-967A1AB34E0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGMTApp.Domain", "MGMTApp.Domain\MGMTApp.Domain.csproj", "{6CF6A98C-E0B0-4F0B-A8E8-86FA524FBE44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGMTApp.DataAccess", "MGMTApp.DataAccess\MGMTApp.DataAccess.csproj", "{22005E16-1DBD-4178-B40B-C588E89C010F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BEFBAE84-42EA-4650-872F-B786082003D7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +24,14 @@ Global
 		{5BBB8D99-972B-47AB-A784-967A1AB34E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BBB8D99-972B-47AB-A784-967A1AB34E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BBB8D99-972B-47AB-A784-967A1AB34E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CF6A98C-E0B0-4F0B-A8E8-86FA524FBE44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CF6A98C-E0B0-4F0B-A8E8-86FA524FBE44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF6A98C-E0B0-4F0B-A8E8-86FA524FBE44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CF6A98C-E0B0-4F0B-A8E8-86FA524FBE44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22005E16-1DBD-4178-B40B-C588E89C010F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22005E16-1DBD-4178-B40B-C588E89C010F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22005E16-1DBD-4178-B40B-C588E89C010F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22005E16-1DBD-4178-B40B-C588E89C010F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

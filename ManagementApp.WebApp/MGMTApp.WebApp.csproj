@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -15,6 +15,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6" />
 	  <PackageReference Include="Dapper" Version="2.1.35" />
 	  <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MGMTApp.DataAccess\MGMTApp.DataAccess.csproj" />
+    <ProjectReference Include="..\MGMTApp.Domain\MGMTApp.Domain.csproj" />
   </ItemGroup>
 
 </Project>
