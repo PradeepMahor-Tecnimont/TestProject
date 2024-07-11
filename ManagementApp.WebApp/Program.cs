@@ -2,6 +2,7 @@ using MGMTApp.DataAccess;
 using MGMTApp.WebApp.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WebEssentials.AspNetCore.Pwa;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
 
 builder.Services.AddDataAccessService();
+
+builder.Services.AddProgressiveWebApp(new PwaOptions
+{
+    RegisterServiceWorker = true,
+    RegisterWebmanifest = false,  // (Manually register in Layout file)
+    Strategy = ServiceWorkerStrategy.NetworkFirst,
+    OfflineRoute = "Offline.html"
+});
 
 var app = builder.Build();
 
