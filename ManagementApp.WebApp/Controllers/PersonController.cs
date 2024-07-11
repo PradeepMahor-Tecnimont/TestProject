@@ -1,7 +1,9 @@
 ﻿using MGMTApp.DataAccess.Repositories;
 using MGMTApp.Domain.Person;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using static MGMTApp.WebApp.Classes.DTModel;
 
 namespace MGMTApp.WebApp.Controllers
 {
@@ -17,6 +19,91 @@ namespace MGMTApp.WebApp.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> GetListsPerson(string paramJson)
+        {
+            DTResult<PersonDataTableList> result = new();
+            var param = JsonConvert.DeserializeObject<DTParameters>(paramJson);
+            int totalRow = 0;
+
+            try
+            {
+                var data = await _personRepository.GetAllPersonAsync();
+
+                //var data = await await _personRepository.GetAllPersonAsync();
+                //    BaseSpTcmPLGet(),
+                //    new ParameterSpTcmPL
+                //    {
+                //        PGenericSearch = param.GenericSearch,
+                //        PStartDate = param.StartDate,
+                //        PEndDate = param.EndDate,
+                //        PCostcode = param.Costcode,
+                //        PRowNumber = param.Start,
+                //        PPageLength = param.Length
+                //    }
+                //);
+
+                if (data.Any())
+                {
+                    totalRow = (int)data.FirstOrDefault().TotalRow.Value;
+                }
+
+                result.draw = param.Draw;
+                result.recordsTotal = totalRow;
+                result.recordsFiltered = totalRow;
+                result.data = data.ToList();
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> GetListsDMSGuestMasterOld(DTParameters param)
+        {
+            DTResult<PersonDataTableList> result = new();
+            int totalRow = 0;
+
+            try
+            {
+                var data = await _personRepository.GetAllPersonAsync();
+
+                //var data = await await _personRepository.GetAllPersonAsync();
+                //    BaseSpTcmPLGet(),
+                //    new ParameterSpTcmPL
+                //    {
+                //        PGenericSearch = param.GenericSearch,
+                //        PStartDate = param.StartDate,
+                //        PEndDate = param.EndDate,
+                //        PCostcode = param.Costcode,
+                //        PRowNumber = param.Start,
+                //        PPageLength = param.Length
+                //    }
+                //);
+
+                if (data.Any())
+                {
+                    totalRow = (int)data.FirstOrDefault().TotalRow.Value;
+                }
+
+                result.draw = param.Draw;
+                result.recordsTotal = totalRow;
+                result.recordsFiltered = totalRow;
+                result.data = data.ToList();
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
         }
 
         public IActionResult Person()
