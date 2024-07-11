@@ -31,7 +31,11 @@ namespace MGMTApp.WebApp.Controllers
 
             try
             {
-                var data = await _personRepository.GetAllPersonAsync();
+                if (param.Start is 0)
+                {
+                    param.Start = 1;
+                }
+                var data = await _personRepository.GetAllPersonAsync(param.Start, param.Length);
 
                 //var data = await await _personRepository.GetAllPersonAsync();
                 //    BaseSpTcmPLGet(),
@@ -73,7 +77,7 @@ namespace MGMTApp.WebApp.Controllers
 
             try
             {
-                var data = await _personRepository.GetAllPersonAsync();
+                var data = await _personRepository.GetAllPersonAsync(param.Start, param.Length);
 
                 //var data = await await _personRepository.GetAllPersonAsync();
                 //    BaseSpTcmPLGet(),
@@ -188,7 +192,8 @@ namespace MGMTApp.WebApp.Controllers
         {
             try
             {
-                var personAll = await _personRepository.GetAllPersonAsync();
+                var personAll = await _personRepository.GetAllPersonAsync(1, 1);
+
                 return View(personAll);
             }
             catch (Exception ex)

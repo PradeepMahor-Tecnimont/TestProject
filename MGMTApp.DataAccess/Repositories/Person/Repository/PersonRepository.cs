@@ -76,10 +76,10 @@ namespace MGMTApp.DataAccess.Repositories
             return result.FirstOrDefault();
         }
 
-        public async Task<IEnumerable<PersonDataTableList>> GetAllPersonAsync()
+        public async Task<IEnumerable<PersonDataTableList>> GetAllPersonAsync(int pageNumber, int rowsOfPage)
         {
             string query = "sp_get_Allperson";
-            return await _dataAccess.GetData<PersonDataTableList, dynamic>(query, new { });
+            return await _dataAccess.GetData<PersonDataTableList, dynamic>(query, new { PageNumber = pageNumber, RowsOfPage = rowsOfPage });
         }
     }
 }
