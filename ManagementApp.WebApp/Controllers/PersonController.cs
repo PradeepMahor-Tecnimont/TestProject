@@ -35,49 +35,11 @@ namespace MGMTApp.WebApp.Controllers
                 {
                     param.Start = 1;
                 }
-                var data = await _personRepository.GetAllPersonAsync(param.Start, param.Length);
-
-                //var data = await await _personRepository.GetAllPersonAsync();
-                //    BaseSpTcmPLGet(),
-                //    new ParameterSpTcmPL
-                //    {
-                //        PGenericSearch = param.GenericSearch,
-                //        PStartDate = param.StartDate,
-                //        PEndDate = param.EndDate,
-                //        PCostcode = param.Costcode,
-                //        PRowNumber = param.Start,
-                //        PPageLength = param.Length
-                //    }
-                //);
-
-                if (data.Any())
-                {
-                    totalRow = (int)data.FirstOrDefault().TotalRow.Value;
-                }
-
-                result.draw = param.Draw;
-                result.recordsTotal = totalRow;
-                result.recordsFiltered = totalRow;
-                result.data = data.ToList();
-
-                return Json(result);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { error = ex.Message });
-            }
-        }
-
-        [HttpGet]
-        [ValidateAntiForgeryToken]
-        public async Task<JsonResult> GetListsDMSGuestMasterOld(DTParameters param)
-        {
-            DTResult<PersonDataTableList> result = new();
-            int totalRow = 0;
-
-            try
-            {
-                var data = await _personRepository.GetAllPersonAsync(param.Start, param.Length);
+                var data = await _personRepository
+                            .GetAllPersonAsync(
+                               pageNumber: param.Start,
+                               rowsOfPage: param.Length
+                             );
 
                 //var data = await await _personRepository.GetAllPersonAsync();
                 //    BaseSpTcmPLGet(),
@@ -192,7 +154,7 @@ namespace MGMTApp.WebApp.Controllers
         {
             try
             {
-                var personAll = await _personRepository.GetAllPersonAsync(1, 1);
+                var personAll = await _personRepository.GetAllPersonAsync(1, 1000);
 
                 return View(personAll);
             }
