@@ -30,35 +30,56 @@
                     <h5 class="card-title">
                         Person
                     </h5>
+                    <div class="d-flex flex-row">
+                        <a title="New bay" class="btn btn-outline-primary btn-sm border border-white" href="#"
+                           data-jqueryselector="openmodal"
+                           data-modalcontainer="modalcontainer"
+                           data-modalpopupwidth="rightw35"
+                           data-url='@Url.Action("PersonCreate", "Person")'
+                           @*data-url='@Url.Action("PersonCreate", "Masters", new { Area = "DMS" })'*@
+                           data-statichtmlsourcedivid=""
+                           data-modaltitle="New"
+                           data-modalheader="New">
+                            <i class="fas fa-plus"></i> Create
+                        </a>
 
+                        <a style="float:right" class="btn btn-outline-success btn-sm border border-white mx-2 ml-auto"
+                           href="#"
+                           data-jqueryselector="binarydownload"
+                           data-url="@(Url.Action("PersonExcelDownload", "Person"))">
+                            @*data-url="@(Url.Action("PersonExcelDownload", "Person", new { Area = "DMS" }))">*@
+                            <i class="fas fa-file-excel green-color"></i>&nbsp;Export
+                        </a>
+                    </div>
                     <!-- Floating Labels Form -->
-                    <form class="row g-3 needs-validation was-validated">
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingName" placeholder="Your Name" required>
-                                <label for="floatingName">Your Name</label>
+                    @*<form class="row g-3 needs-validation was-validated">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name" required>
+                                    <label for="floatingName">Your Name</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="email" class="form-control" id="floatingEmail" placeholder="Your Email" required>
-                                <label for="floatingEmail">Your Email</label>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="floatingEmail" placeholder="Your Email" required>
+                                    <label for="floatingEmail">Your Email</label>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Address" rows="2"
-                                          id="floatingTextarea" style="height: 100px;" required></textarea>
-                                <label for="floatingTextarea">Address</label>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Address" rows="2"
+                                              id="floatingTextarea" style="height: 100px;" required></textarea>
+                                    <label for="floatingTextarea">Address</label>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <button type="reset" class="btn btn-secondary">Reset</button>
-                        </div>
-                    </form><!-- End floating Labels Form -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </form>*@
+                    <!-- End floating Labels Form -->
                 </div>
             </div>
         </div>
@@ -76,8 +97,7 @@
                             <th>@Html.DisplayNameFor(model => model.FullName)</th>
                             <th>@Html.DisplayNameFor(model => model.Email)</th>
                             <th>@Html.DisplayNameFor(model => model.Address)</th>
-                            @*<th>&nbsp;</th>
-                                <th>&nbsp;</th>*@
+                            <th>&nbsp;</th>
                         </tr>
                     </thead>
                 </table>
@@ -95,9 +115,8 @@
 
             loadDataTable();
 
-            function localScript() {
+        function localScript() {
 
-          /*  initSelect2();*/
         }
 
         function loadDataTable() {
@@ -105,7 +124,23 @@
             let datatableColumns = [
                 { 'data': "fullName" },
                 { 'data': "email" },
-                { 'data': "address" }
+                { 'data': "address" },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        return '<button title="Edit" class="btn btn-outline-primary btn-sm border-none" ' +
+                            ' data-jqueryselector="openmodal" ' +
+                            ' data-modalcontainer="modalcontainer" '+
+                            ' data-url="@Url.Action("PersonEdit", "Person")"' +
+                            ' data-modalpopupwidth="rightw35" ' +
+                            ' data-id="' + data.id + '"' +
+                            ' data-modaltitle="edit" ' +
+                            ' data-modalheader="edit" >' +
+                            ' <i class="fas fa-edit" aria-hidden="true"></i> ' +
+                            ' </button>';
+                    },
+                    className: "td-icon",
+                },
             ];
 
             let vPersonDataTableList = "@Url.Action("GetListsPerson", "Person")";

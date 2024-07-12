@@ -17,6 +17,6 @@ namespace MGMTApp.DataAccess.Repositories
 
         public Task<PersonDetails?> GetByIdAsync(int id);
 
-        public Task<IEnumerable<PersonDataTableList>> GetAllPersonAsync(int pageNumber, int rowsOfPage);
+        public Task<IEnumerable<PersonDataTableList>> GetAllPersonAsync(int pageNumber = 1, int rowsOfPage = 1);
     }
 }
