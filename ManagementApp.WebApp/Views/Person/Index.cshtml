@@ -92,15 +92,16 @@
 
     <script>
         $(document).ready(function () {
+
             loadDataTable();
 
             function localScript() {
-                loadDataTable();
+
           /*  initSelect2();*/
         }
 
         function loadDataTable() {
-            showLoader();
+
             let datatableColumns = [
                 { 'data': "fullName" },
                 { 'data': "email" },
@@ -117,7 +118,7 @@
                         },
                     pRequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
                     });
-            hideLoader();
+
         };
             //$("#GenericSearch").keypress(function (event) {
             //    if (event.keyCode === 13) {
