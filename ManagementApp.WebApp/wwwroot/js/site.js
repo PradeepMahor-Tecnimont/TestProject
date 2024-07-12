@@ -365,6 +365,7 @@ function showDeleteConfirmation(jsonString) {
                     else if (sCallback) {
                         {
                             window[sCallback](data);
+                            hideLoader();
                         }
                     }
                     else {
@@ -495,7 +496,6 @@ function toggleMenuState() {
         r.style.setProperty('--navbar-width', navBarOpenWidth);
         console.log("Step2")
     }
-
 }
 
 function ofbfileDownload(event, object) {
@@ -714,7 +714,6 @@ function loadView(element) {
                 if (typeof loadTimesheetNotfilledDataTable == 'function' && action == 'EmployeeNotfilledIndex') {
                     loadTimesheetNotfilledDataTable();
                 }
-
             } if (callback) {
                 var aryCallBack = (callback + ";").split(";");
                 for (i = 0; i < aryCallBack.length; i++) {
@@ -972,6 +971,7 @@ function genericLoadDataTable({ pDataTableId, pColumns, pUrl, pUrlParams, pReque
             },
             error: function (request, status, error) {
                 showError('error', request, 'danger');
+                hideLoader();
             },
             complete: function () {
                 loadScript();
@@ -1068,10 +1068,7 @@ function loadProcessLogDataTable(vVUloadProcessLogList) {
     });
 };
 
-
-
 function ajaxDSSelect2({ pSelect2Id, pUrl, pRequestVerificationToken = "", pPreSelectedId = "", pFilter1 = "", pFilter2 = "" }) {
-
     //console.log(pSelect2Id);
     //console.log(pUrl);
     let noOfRows = 250;
@@ -1098,7 +1095,6 @@ function ajaxDSSelect2({ pSelect2Id, pUrl, pRequestVerificationToken = "", pPreS
                 }
 
                 return query;
-
             },
             beforeSend: function (request) {
                 if (pRequestVerificationToken) {
@@ -1134,7 +1130,6 @@ function ajaxDSSelect2({ pSelect2Id, pUrl, pRequestVerificationToken = "", pPreS
                 search: "",
                 page: 1,
                 id: pPreSelectedId
-
             },
             beforeSend: function (request) {
                 if (pRequestVerificationToken) {
@@ -1156,4 +1151,3 @@ function ajaxDSSelect2({ pSelect2Id, pUrl, pRequestVerificationToken = "", pPreS
         });
     }
 }
-

@@ -94,120 +94,31 @@
         $(document).ready(function () {
             loadDataTable();
 
-        function localScript() {
+            function localScript() {
+                loadDataTable();
           /*  initSelect2();*/
         }
 
-        function loadDataTableOld() {
-            $('#tbGrid').DataTable({
-                drawCallback: function (settings) {
-                    loadScript();
-                },
-                destroy: true,
-                pageLength: 25,
-                responsive: true,
-                autoWidth: false,
-                lengthMenu: [25,50],
-                processing: true,
-                serverSide: true,
-                stateSave: true,
-                info: false,
-                filter: false,
-                layout: {topStart: null,bottomStart: 'pageLength',bottomEnd: 'paging'},
-                ordering: false,
-                columns: [
-                    @*{
-                        data: null,
-                        render: function (data, type, row) {
-                            return '<button title="Edit" class="btn btn-outline-primary btn-sm border-none" ' +
-                                    ' data-jqueryselector="openmodal" ' +
-                                    ' data-modalcontainer="modalcontainer" '+
-                                    ' data-url="@Url.Action("DeskBlockEdit", "DMS", new { Area = "DMS" })"' +
-                                    ' data-modalpopupwidth="rightw35" ' +
-                                    ' data-id="' + data.id + '"' +
-                                    ' data-modaltitle="Edit desk block" ' +
-                                    ' data-modalheader="Edit desk block" >' +
-                                    ' <i class="fas fa-edit" aria-hidden="true"></i> ' +
-                                    ' </button>';
-                        },
-                        className: "td-icon",
-                    },*@
-                    { 'data': "fullName" },
-                    { 'data': "email" },
-                    { 'data': "address" },
-                    @*{
-                        data: null,
-                        render: function (data, type, row) {
-                            return '<button title="Edit" class="btn btn-outline-primary btn-sm border-none" ' +
-                            ' data-jqueryselector="openmodal" ' +
-                            ' data-modalcontainer="modalcontainer" '+
-                            ' data-url="@Url.Action("DMSGuestMasterEdit", "DMS", new { Area = "DMS" })"' +
-                            ' data-modalpopupwidth="rightw35" ' +
-                                ' data-guestEmpno="' + data.id + '"' +
-                            ' data-modaltitle="Guest master edit" ' +
-                            ' data-modalheader="Guest master edit" >' +
-                            ' <i class="fas fa-edit" aria-hidden="true"></i> ' +
-                                ' </button>';
-                        },
-                        className: "td-icon",
-                    },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return ' <button class="btn btn-outline-danger btn-sm border-none " ' +
-                                ' onclick = "showDeleteConfirmationPopup(event,this);" ' +
-                                ' data-jqueryselector = "showconfirmationmodal" ' +
-                                ' data-url="@Url.Action("DeskBlockDelete", "DMS", new { Area = "DMS" })"' +
-                                ' data-id="' + data.id + '"' +
-                                ' data-redirecturl="@Url.Action("DeskBlockIndex", "DMS", new { Area = "DMS" })"' +
-                                ' data-modaltitle="Please Confirm!" ' +
-                                ' data-confirmationtext=\'Do you want to unblock desk "' + data.id + '" ?\' ' +
-                                ' data-confirmationtype="warning" ' +
-                                ' data-confirmbuttontext="Unblock desk" > ' +
-                                ' <i class="fas fa-trash" aria-hidden="true"></i> ' +
-                                ' </button>' ;
-
-                        },
-                        className: "td-icon",
-                    }*@
-                ] ,
-                ajax: {
-                    headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                    url: '@Url.Action("GetListsPerson", "Person")',
-                    type: 'GET',
-                    cache: true,
-                    dataType: "json",
-                    data: function (d) {
-                        d.columns = null;
-                        d.order = null;
-                        d.search = null;
-                        d.genericSearch = $('#GenericSearch').val();
-                    },
-                    error: function (request, status, error) {
-                        notify('error', request.responseText, 'danger');
-                    }
-                }
-            });
-        };
-
         function loadDataTable() {
+            showLoader();
             let datatableColumns = [
-            { 'data': "fullName" },
-            { 'data': "email" },
-            { 'data': "address" }
-        ];
-            let vPersonDataTableList = "@Url.Action("GetListsPerson", "Person")";
-            genericLoadDataTable({
-                pDataTableId: "#tbGrid",
-                pColumns: datatableColumns,
-                pUrl: vPersonDataTableList,
-                pUrlParams: {
-                    genericSearch: $('#GenericSearch').val() ? $('#GenericSearch').val() : null,
-                },
-                pRequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
-                });
-        };
+                { 'data': "fullName" },
+                { 'data': "email" },
+                { 'data': "address" }
+            ];
 
+            let vPersonDataTableList = "@Url.Action("GetListsPerson", "Person")";
+                    genericLoadDataTable({
+                    pDataTableId: "#tbGrid",
+                    pColumns: datatableColumns,
+                    pUrl: vPersonDataTableList,
+                    pUrlParams: {
+                        genericSearch: $('#GenericSearch').val() ? $('#GenericSearch').val() : null,
+                        },
+                    pRequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    });
+            hideLoader();
+        };
             //$("#GenericSearch").keypress(function (event) {
             //    if (event.keyCode === 13) {
             //        if ($("#GenericSearch").length) {
