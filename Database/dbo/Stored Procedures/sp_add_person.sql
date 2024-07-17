@@ -1,40 +1,36 @@
-﻿CREATE PROCEDURE sp_add_person(
-   @GuidId nvarchar(max),
-   @UserName nvarchar(100),
-   @FirstName nvarchar(100),
-   @LastName nvarchar(100),
-   @Gender nvarchar(100),
-   @Email nvarchar(100),
-   @MobileNo nvarchar(15),
-   @Address nvarchar(200),
-   @Password nvarchar(25),
-   @ConfirmPassword nvarchar(25),
-   @IsActive int,
-   @CreatedBy nvarchar(50),
-   @CreatedOn datetime,
-   @ReturnType nvarchar(2) = NULL OUT,
-   @ReturnText nvarchar(max) = NULL OUT
-)
+﻿CREATE PROCEDURE sp_add_person (
+	@GuidId NVARCHAR(max)
+	,@UserName NVARCHAR(100)
+	,@FirstName NVARCHAR(100)
+	,@LastName NVARCHAR(100)
+	,@Gender NVARCHAR(100)
+	,@Email NVARCHAR(100)
+	,@MobileNo NVARCHAR(15)
+	,@Address NVARCHAR(200)
+	,@Password NVARCHAR(25)
+	,@ConfirmPassword NVARCHAR(25)
+	,@IsActive INT
+	,@CreatedBy NVARCHAR(50)
+	,@CreatedOn DATETIME
+	,@ReturnType NVARCHAR(2) = NULL OUT
+	,@ReturnText NVARCHAR(max) = NULL OUT
+	)
 AS
 BEGIN
+	SET NOCOUNT ON;
 
-SET NOCOUNT ON;
+	DECLARE @SpName NVARCHAR(128) = OBJECT_NAME(@@PROCID)
+	DECLARE @TranCount INT = @@TRANCOUNT
+	DECLARE @ActionIdAdd NVARCHAR(128) = 'ADD'
+	DECLARE @DataNew NVARCHAR(MAX)
+	DECLARE @Nominative NVARCHAR(128)
+	DECLARE @CustomerContactIdOld NVARCHAR(128)
+	DECLARE @IsDeletedOld BIT
+	DECLARE @RandomString CHAR(2)
 
-    DECLARE @SpName										NVARCHAR(128) = OBJECT_NAME(@@PROCID)
-    DECLARE @TranCount									INT = @@TRANCOUNT
-
-	DECLARE @ActionIdAdd								NVARCHAR(128) = 'ADD'
-	DECLARE @DataNew									NVARCHAR(MAX)
-
-	DECLARE @Nominative									NVARCHAR(128)
-	DECLARE @CustomerContactIdOld						NVARCHAR(128)
-	DECLARE @IsDeletedOld								BIT
-	DECLARE @RandomString								CHAR(2)
-
- BEGIN TRY
-
+	BEGIN TRY
 		-- Check User permission
-	/*
+		/*
     	IF dbo.sfAppEntityProfileUserEnabledCheck(@UIAppId, @UIEntityId, @UIProfileId, @UIUserId, @UICultureInfoId) = 0
 		BEGIN
 			SET @ReturnType = 'KO'
@@ -75,57 +71,58 @@ SET NOCOUNT ON;
 		END
 
     */
+		INSERT INTO [dbo].[Person] (
+			[GuidId]
+			,[UserName]
+			,[FirstName]
+			,[LastName]
+			,[Gender]
+			,[Email]
+			,[MobileNo]
+			,[Address]
+			,[Password]
+			,[ConfirmPassword]
+			,[IsActive]
+			,[CreatedBy]
+			,[CreatedOn]
+			)
+		VALUES (
+			@GuidId
+			,@UserName
+			,@FirstName
+			,@LastName
+			,@Gender
+			,@Email
+			,@MobileNo
+			,@Address
+			,@Password
+			,@ConfirmPassword
+			,@IsActive
+			,@CreatedBy
+			,@CreatedOn
+			);
+	END TRY
 
-INSERT INTO [dbo].[Person]
-           ([GuidId]
-           ,[UserName]
-           ,[FirstName]
-           ,[LastName]
-           ,[Gender]
-           ,[Email]
-           ,[MobileNo]
-           ,[Address]
-           ,[Password]
-           ,[ConfirmPassword]
-           ,[IsActive]
-           ,[CreatedBy]
-           ,[CreatedOn])
-     VALUES
-           (@GuidId,
-           @UserName,
-           @FirstName,
-           @LastName,
-           @Gender,
-           @Email,
-           @MobileNo,
-           @Address,
-           @Password,
-           @ConfirmPassword,
-           @IsActive,
-           @CreatedBy,
-           @CreatedOn);
+	BEGIN CATCH
+		DECLARE @xState INT = XACT_STATE()
 
-		     END TRY
+		IF @xState = - 1
+			ROLLBACK
 
-    BEGIN CATCH
-        DECLARE @xState INT = XACT_STATE()
+		IF @xState = 1
+			AND @TranCount = 0
+			ROLLBACK
 
-        IF @xState = -1
-            ROLLBACK
-        IF @xState = 1 AND @TranCount = 0
-            ROLLBACK
-
-    --        IF @xState = 1 AND @TranCount > 0
-    ---          ROLLBACK TRAN @SpName
- /*
+		--        IF @xState = 1 AND @TranCount > 0
+		---          ROLLBACK TRAN @SpName
+		/*
  	IF @TranCount = 0
 			EXEC log.spDBErrorLogCreate @UIAppId = @UIAppId, @UIEntityId = @UIEntityId, @UIProfileId = @UIProfileId, @UIUserId = @UIUserId, @UICultureInfoId = @UICultureInfoId,
 				@Id = @CustomerId, @ReturnMessage = @ReturnMessage
 		ELSE
 			SET @ReturnMessage = ERROR_PROCEDURE() + ' - ' + CONVERT(VARCHAR(50), ERROR_LINE()) + ' - ' + ERROR_MESSAGE()
  */
-	        SET @ReturnType = 'KO'
-            SET @ReturnText = ERROR_PROCEDURE() + ' - ' + CONVERT(VARCHAR(50), ERROR_LINE()) + ' - ' + ERROR_MESSAGE()
-
-    END CATCH
+		SET @ReturnType = 'KO'
+		SET @ReturnText = ERROR_PROCEDURE() + ' - ' + CONVERT(VARCHAR(50), ERROR_LINE()) + ' - ' + ERROR_MESSAGE()
+	END CATCH
 END;
