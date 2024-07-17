@@ -9,13 +9,24 @@ AS
 --SET @PageNumber=2
 --SET @RowsOfPage=4
 BEGIN
-  SELECT [Id]
-      ,[FullName]
+SELECT [Id]
+      ,[GuidId]
+      ,[UserName]
+      ,[FirstName]
+      ,[LastName]
+      ,[Gender]
       ,[Email]
-      ,[Address],
-	  ROWCOUNT_BIG() as TotalRow
-	  FROM [Person]
+      ,[MobileNo]
+      ,[Address]
+      ,[Password]
+      ,[ConfirmPassword]
+      ,[IsActive]
+      ,[CreatedBy]
+      ,[CreatedOn],
+       ROWCOUNT_BIG() as TotalRow
+  FROM [dbo].[Person]
 ORDER BY [Id]
+
 OFFSET (@PageNumber-1)*@RowsOfPage ROWS
 FETCH NEXT @RowsOfPage ROWS ONLY
 END;

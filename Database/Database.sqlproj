@@ -69,4 +69,8 @@
     <Build Include="dbo\Stored Procedures\sp_update_person.sql" />
     <Build Include="dbo\Stored Procedures\sp_delete_person.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="MGMTAppDb_MSSQLLocalDB.publish.xml" />
+    <None Include=".editorconfig" />
+  </ItemGroup>
 </Project>
