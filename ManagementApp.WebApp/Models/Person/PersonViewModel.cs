@@ -11,8 +11,8 @@ namespace MGMTApp.WebApp.Models
         [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [Display(Name = "Full Name")]
-        public string? FullName { get; set; }
+        [Display(Name = "User Name")]
+        public string? UserName { get; set; }
 
         [Display(Name = "Email")]
         public string? Email { get; set; }

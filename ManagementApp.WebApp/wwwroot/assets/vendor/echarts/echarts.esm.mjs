@@ -15725,15 +15725,15 @@ function enableTopologicalTravel(entity, dependencyGetter) {
   /**
    * @param targetNameList Target Component type list.
    *                       Can be ['aa', 'bb', 'aa.xx']
-   * @param fullNameList By which we can build dependency graph.
+   * @param UserNameList By which we can build dependency graph.
    * @param callback Params: componentType, dependencies.
    * @param context Scope of callback.
    */
-  entity.topologicalTravel = function (targetNameList, fullNameList, callback, context) {
+  entity.topologicalTravel = function (targetNameList, UserNameList, callback, context) {
     if (!targetNameList.length) {
       return;
     }
-    var result = makeDepndencyGraph(fullNameList);
+    var result = makeDepndencyGraph(UserNameList);
     var graph = result.graph;
     var noEntryList = result.noEntryList;
     var targetNameSet = {};
@@ -15753,7 +15753,7 @@ function enableTopologicalTravel(entity, dependencyGetter) {
     each(targetNameSet, function () {
       var errMsg = '';
       if ("development" !== 'production') {
-        errMsg = makePrintable('Circular dependency may exists: ', targetNameSet, targetNameList, fullNameList);
+        errMsg = makePrintable('Circular dependency may exists: ', targetNameSet, targetNameList, UserNameList);
       }
       throw new Error(errMsg);
     });
@@ -15774,13 +15774,13 @@ function enableTopologicalTravel(entity, dependencyGetter) {
       removeEdge(succComponentType);
     }
   };
-  function makeDepndencyGraph(fullNameList) {
+  function makeDepndencyGraph(UserNameList) {
     var graph = {};
     var noEntryList = [];
-    each(fullNameList, function (name) {
+    each(UserNameList, function (name) {
       var thisItem = createDependencyGraphItem(graph, name);
       var originalDeps = thisItem.originalDeps = dependencyGetter(name);
-      var availableDeps = getAvailableDependencies(originalDeps, fullNameList);
+      var availableDeps = getAvailableDependencies(originalDeps, UserNameList);
       thisItem.entryCount = availableDeps.length;
       if (thisItem.entryCount === 0) {
         noEntryList.push(name);
@@ -15809,10 +15809,10 @@ function enableTopologicalTravel(entity, dependencyGetter) {
     }
     return graph[name];
   }
-  function getAvailableDependencies(originalDeps, fullNameList) {
+  function getAvailableDependencies(originalDeps, UserNameList) {
     var availableDeps = [];
     each(originalDeps, function (dep) {
-      indexOf(fullNameList, dep) >= 0 && availableDeps.push(dep);
+      indexOf(UserNameList, dep) >= 0 && availableDeps.push(dep);
     });
     return availableDeps;
   }

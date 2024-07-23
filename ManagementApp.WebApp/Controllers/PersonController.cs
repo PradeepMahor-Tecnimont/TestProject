@@ -80,7 +80,7 @@ namespace MGMTApp.WebApp.Controllers
                     AddPerson addPersonModel = new AddPerson()
                     {
                         Email = personCreateViewModel.Email,
-                        FullName = personCreateViewModel.FullName,
+                        UserName = personCreateViewModel.UserName,
                         Address = personCreateViewModel.Address,
                     };
                     bool addPerson = await _personRepository.AddAsync(addPersonModel);
@@ -127,7 +127,7 @@ namespace MGMTApp.WebApp.Controllers
 
                     personUpdateViewModel.Id = id;
                     personUpdateViewModel.Email = t.Email;
-                    personUpdateViewModel.FullName = t.FullName;
+                    personUpdateViewModel.UserName = t.UserName;
                     personUpdateViewModel.Address = t.Address;
                 }
             }
@@ -151,7 +151,7 @@ namespace MGMTApp.WebApp.Controllers
                     {
                         Id = personUpdateViewModel.Id,
                         Email = personUpdateViewModel.Email,
-                        FullName = personUpdateViewModel.FullName,
+                        UserName = personUpdateViewModel.UserName,
                         Address = personUpdateViewModel.Address,
                     };
                     bool updatePerson = await _personRepository.UpdateAsync(updatePersonModel);

@@ -1,10 +1,13 @@
+using DeviceDetectorNET.Cache;
+using DeviceDetectorNET;
+using DeviceDetectorNET.Parser;
 using MGMTApp.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace MGMTApp.WebApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 

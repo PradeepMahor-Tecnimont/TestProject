@@ -25,7 +25,7 @@ namespace MGMTApp.DataAccess.Repositories
             {
                 await _dataAccess.SaveData("sp_add_person", new
                 {
-                    Name = person.FullName,
+                    UserName = person.UserName,
                     email = person.Email,
                     address = person.Address
                 });
@@ -44,7 +44,7 @@ namespace MGMTApp.DataAccess.Repositories
                 await _dataAccess.SaveData("sp_update_person", new
                 {
                     id = person.Id,
-                    Name = person.FullName,
+                    UserName = person.UserName,
                     email = person.Email,
                     address = person.Address
                 });

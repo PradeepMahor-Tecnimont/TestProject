@@ -283,7 +283,7 @@ var requirejs, require, define;
 
         //Using ridiculous property names for space reasons
         return {
-            f: prefix ? prefix + '!' + name : name, //fullName
+            f: prefix ? prefix + '!' + name : name, //UserName
             n: name,
             pr: prefix,
             p: plugin

@@ -16,7 +16,7 @@ namespace MGMTApp.Domain.Person
         public int Id { get; set; }
 
         [Required]
-        public string? FullName { get; set; }
+        public string? UserName { get; set; }
 
         [Required]
         public string? Email { get; set; }

@@ -62,6 +62,15 @@
     <!--Render Styles-->
     @await RenderSectionAsync("Styles", required: false)
     <!--Render Styles-->
+
+    @{
+        var isMobileBool = (bool)@Context.Items["isMobile"];
+        string isMobile = "false";
+        if (isMobileBool == true)
+        {
+            isMobile = "true";
+        }
+    }
 </head>
 <body>
     @*<header>
@@ -247,6 +256,7 @@
 
     <script src="~/lib/datatables.net-bs5/dataTables.bootstrap5.min.js" asp-append-version="true"></script>
     <script>
+
         function createWebSocket(path) {
             var protocolPrefix = (window.location.protocol === 'https:') ? 'wss:' : 'ws:';
             return new WebSocket(protocolPrefix + '//' + location.host + path);
